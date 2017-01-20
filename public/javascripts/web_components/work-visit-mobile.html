@@ -1,0 +1,30 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../work-visit/new-work-visit-mobile/new-work-visit.html">
+
+<dom-module id="work-visit">
+    <template>
+        <div class="col-sm-6 col-xs-12">
+            <new-work-visit></new-work-visit>
+        </div>
+    </template>
+
+    <script>
+
+        (function () {
+            'use strict';
+            Polymer({
+                is: 'work-visit',
+                properties: {
+                    rootUrl: {
+                        type: String
+                    }
+                },
+                ready:function(){
+
+
+                }
+            });
+        })();
+    </script>
+
+</dom-module>

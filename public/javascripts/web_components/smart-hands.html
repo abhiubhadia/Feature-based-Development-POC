@@ -1,0 +1,159 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<dom-module id="smart-hands">
+    <link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+    <template>
+        <iron-ajax auto url="{{rootUrl}}/getIbxList" handle-as="json" last-response="{{ibxList}}"></iron-ajax>
+        <iron-ajax id="getCages" url="{{rootUrl}}/getCages?ibx={{ibxSelected}}" handle-as="json" last-response="{{cageList}}"></iron-ajax>
+        <iron-ajax auto id="getCabins" url="{{rootUrl}}/getCabins?ibx={{cageSelected}}" handle-as="json" last-response="{{cabinList}}"></iron-ajax>
+        <div class="panel panel-default">
+            <div class="panel-heading"><h3 class="title">Smart Hands</h3></div>
+            <div class="panel-body">
+                <form class="form" id="smart-hands-form"  role="form">
+                    <div class="col-sm-6 col-xs-12 no-left-padding">
+                        <div class="form-group">
+                            <label >Select IBX</label>
+                            <select id ="ibx-select" data-width="100%" class="form-control"  name="ibxname" placeholder="Select Ibx" on-change="getCages">
+                                <template is="dom-repeat" items="{{ibxList}}" as="ibx">
+                                    <option id="{{ibx.id}}">{{ibx.country}}</option>
+                                </template>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Select Cages</label>
+                            <select id ="cage-select" data-width="100%" placeholder="Select cage" name="cage" class="form-control" on-change="getCabins">
+                                <template is="dom-repeat" items="{{cageList}}" as="cage">
+                                    <option id="{{cage.id}}">{{cage.name}}</option>
+                                </template>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Select Cabins</label>
+                            <select id ="cabin-select" data-width="100%" placeholder="Select cabin" name="cabin" class="form-control">
+                                <template is="dom-repeat" items="{{cabinList}}" as="cabin">
+                                    <option id="{{cabin.id}}">{{cabin.name}}</option>
+                                </template>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Smart Hands Type</label>
+                            <select id ="smart-hands-select" data-width="100%" placeholder="Select type" name="smartHandsType" class="form-control">
+                                    <option id="1">Run Jumper</option>
+                                    <option id="2">Equipment Installation</option>
+                                    <option id="3">Shipment Unpacking</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Scheduling</label>
+                            <select id ="schedule-select" data-width="100%" placeholder="Select scheduling" name="schedule" class="form-control">
+                                <option id="0-sch">Standard</option>
+                                <option id="1-sch">Expedited</option>
+                                <option id="2-sch">Scheduled Maintainance</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Scope of work</label>
+                            <textarea class="form-control" type="textarea" id="work-scope" name="workScope" placeholder="Scope of work" maxlength="140" rows="4"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-xs-12 no-right-padding">
+                        <div class="form-group">
+                            <label>Purchase order reference</label>
+                            <input class="form-control" type="text" id="purchase-order" name="purchaseOrder" placeholder="Purchase order reference"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Customer Internal Reference</label>
+                            <input class="form-control" type="text" id="customer-ref" name="customerRef" placeholder="Customer Internal Reference"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Call work number</label>
+                            <select id ="call-work-select" data-width="100%" placeholder="Select call option" name="callWork" class="form-control">
+                                <option id="yes">Yes</option>
+                                <option id="no">No</option>
+                                <option id="business">Yes,Only during business hours</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Call mobile number</label>
+                            <select id ="call-mobile-select" data-width="100%" placeholder="Select call mobile option" name="callMobile" class="form-control">
+                                <option id="m-yes">Yes</option>
+                                <option id="m-no">No</option>
+                                <option id="m-business">Yes,Only during business hours</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <div class="panel panel-default">
+                                <div class="panel-heading sub-panel"><h5 class="title">Ordering contact:</h5></div>
+                                <div class="panel-body">
+                                    <p>Ashok Damacharia</p>
+                                    <p>Email: <a href="mailto:abc@gmail.com">abc@gmail.com</a></p>
+                                    <p>Work: 408-909-0990</p>
+                                    <p>Mobile:  408-504-8090</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <button type="button" id="submit" name="submit" class="btn btn-gray pull-right" on-click="submitForm">Submit Request</button>
+                </form>
+            </div>
+        </div>
+    </template>
+
+    <script>
+
+        (function () {
+            'use strict';
+            Polymer({
+                is: 'smart-hands',
+                properties: {
+                    rootUrl: {
+                        type: String
+                    }
+                },
+                ready:function(){
+
+                },
+                getCages:function(){
+                    console.log("inside get cages");
+                    this.ibxSelected=$('#ibx-select').val();
+                    this.$.getCages.generateRequest();
+                },
+                getCabins:function(){
+                    console.log("inside get cabins");
+                    this.cageSelected=$('#cage-select').val();
+                    this.$.getCabins.generateRequest();
+                },
+                submitForm:function(e){
+                    $("#smart-hands-form").submit(function (e) {
+                        e.preventDefault();
+                        var postData = $(this).serializeArray();
+                        $.ajax(
+                                {
+                                    type: 'post',
+                                    data: postData,
+                                    cache: false,
+                                    url: '/submitSmartHandRequest',
+                                    success: function (response) {
+                                        $('#smart-hands-form').unbind('submit');
+                                    },
+                                    error: function (err) {
+                                        $('#smart-hands-form').unbind('submit');
+                                        var response = JSON.parse(err.responseText);
+                                    }
+                                }
+                        );
+                    });
+                    $("#smart-hands-form").submit();
+                    //this.sendData();
+                },
+                sendData: function(){
+                    this.fire('send-data', {tag: "data-table", data: {"reload": true}});
+                }
+            });
+        })();
+    </script>
+
+</dom-module>

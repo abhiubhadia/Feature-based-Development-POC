@@ -1,0 +1,40 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<link rel="import" href="work-visit-form.html">
+<link rel="import" href="data-table.html">
+
+<dom-module id="work-visit">
+    <link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+    <template>
+        <div class="row mar-t-20">
+            <div class="col-sm-6 col-xs-12">
+                <work-visit-form req-params="{{fbdReqParams}}"></work-visit-form>
+            </div>
+            <div class="col-sm-6 col-xs-12">
+                <data-table is-ajax url="{{rootUrl}}/getWorkVisitList" module-name="Work Visit"></data-table>
+            </div>
+        </div>
+    </template>
+
+    <script>
+
+        (function () {
+            'use strict';
+            Polymer({
+                is: 'work-visit',
+                properties: {
+					rootUrl: {
+                        type: String
+                    },
+                    fbdReqParams:{
+                        type:Object
+                    }
+                },
+                ready:function(){
+
+                }
+            });
+        })();
+    </script>
+
+</dom-module>

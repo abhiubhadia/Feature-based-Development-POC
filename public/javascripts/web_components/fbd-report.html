@@ -1,0 +1,142 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="data-table.html">
+<link rel="import" href="highcharts/area-chart.html">
+<link rel="import" href="charts/donut-chart.html">
+
+<dom-module id="fbd-report">
+
+    <template>
+        <style>
+            .btn-group, .btn-group-vertical {
+                margin-top:-7px;
+                float: right;
+            }
+            .btn-group > a{
+                color:#fff;
+            }
+        </style>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="title">{{reportName}}
+                    <template is="dom-if" if="{{isExport}}">
+                        <div class="btn-group">
+                            <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                                Export
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#" on-click="exportHTML">HTML</a></li>
+                                <li><a href="#" on-click="exportPDF">PDF</a></li>
+                            </ul>
+                        </div>
+                    </template>
+                </h3>
+
+            </div>
+            <div class="panel-body">
+                <div class="row mar-t-20">
+                    <div class="col-sm-12 col-xs-12" id="{{reportId}}">
+                        <data-table class="fbd-component" is-ajax module-name="Report" table-name="test"></data-table>
+                    </div>
+                    <div class="col-sm-12 col-xs-12">
+                        <area-chart></area-chart>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <script>
+        Polymer({
+            is: 'fbd-report',
+            properties: {
+                reportName : String,
+                reportId : String,
+                isExport : {
+                    type: Boolean,
+                    value: false
+                },
+                rootUrl:{
+                    type:String
+                }
+            },
+            ready:function(){
+
+                (function (H) {
+                    H.Chart.prototype.createCanvas = function (divId) {
+
+                        var svg = this.getSVG(),
+                                width = parseInt(svg.match(/width="([0-9]+)"/)[1]),
+                                height = parseInt(svg.match(/height="([0-9]+)"/)[1]),
+                                canvas = document.createElement('canvas');
+
+                        canvas.setAttribute('width', width);
+                        canvas.setAttribute('height', height);
+
+                        if (canvas.getContext && canvas.getContext('2d')) {
+
+                            canvg(canvas, svg);
+
+                            return canvas.toDataURL("image/jpeg");
+
+                        }
+                        else {
+                            alert("Your browser doesn't support this feature, please use a modern browser");
+                            return false;
+                        }
+
+                    }
+                }(Highcharts));
+            },
+            exportHTML:function(){
+                var filename = 'fbd-report.html';
+                var elId = 'test';
+                var mimeType = 'text/html' || 'text/plain';
+
+                var elHtml = document.getElementById(elId).innerHTML;
+                var link = document.createElement('a');
+                mimeType = mimeType || 'text/plain';
+
+                link.setAttribute('download', filename);
+                link.setAttribute('href', 'data:' + mimeType + ';charset=utf-8,' + encodeURIComponent(elHtml));
+                link.click();
+            },
+            exportPDF:function(){
+
+                var doc = new jsPDF();
+                var specialElementHandlers = {};
+
+                doc.fromHTML($('#test').html(), 15, 15, {
+                    'width': 170,
+                    'elementHandlers': specialElementHandlers
+                });
+
+                // chart height defined here so each chart can be palced
+                // in a different position
+                var chartHeight = 80;
+
+                //loop through each chart
+                $('.myChart').each(function (index) {
+                    var imageData = $(this).highcharts().createCanvas();
+
+                    // add image to doc, if you have lots of charts,
+                    // you will need to check if you have gone bigger
+                    // than a page and do doc.addPage() before adding
+                    // another image.
+
+                    /**
+                     * addImage(imagedata, type, x, y, width, height)
+                     */
+                    doc.addPage();
+                    doc.addImage(imageData, 'JPEG', 45, (index * chartHeight) + 40, 120, chartHeight);
+                });
+
+
+                //save with name
+                doc.save('report.pdf');
+            }
+        });
+    </script>
+
+</dom-module>

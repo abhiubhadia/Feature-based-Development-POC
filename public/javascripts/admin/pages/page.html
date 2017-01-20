@@ -1,0 +1,98 @@
+<h1>Enter the page details</h1>
+<div class="alert alert-dismissible hidden" role="alert"></div>
+<div class="row">
+
+    <div class="col-sm-12 col-md-12">
+        <form class="form-horizontal well" id="navigationDeatils">
+            <div class="form-group">
+                <label class="control-label col-sm-3" for="workflowName">Page Name</label>
+                <div class="col-sm-9">
+                    <input type="text" id="workflowName" name="workflowName" ng-model="page.name" class="form-control"
+                           placeholder="Enter a name for the page" required="required">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-3" for="pageTitle">Page Title</label>
+                <div class="col-sm-9">
+                    <input type="text" id="pageTitle" name="pageTitle" ng-model="page.title" class="form-control"
+                           placeholder="Enter a Title for the page (this is displayed in page header)" required="required">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-3" for="path">Context Path</label>
+                <div class="col-sm-9">
+                    <input type="text" id="path" name="contextPath" ng-model="page.path" class="form-control"
+                           placeholder="Enter the context path for page" required="required">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-3">Page Source</label>
+                <div class="col-sm-9">
+
+                    <div ui-ace="{
+                         useWrapMode : true,
+                         mode: 'html',
+                         onLoad: aceLoaded,
+                         onChange: aceChanged,
+                         require: ['ace/ext/language_tools'],
+                          advanced: {
+                              enableSnippets: true,
+                              enableBasicAutocompletion: true,
+                              enableLiveAutocompletion: true
+                          }
+                    }"></div>
+                </div>
+                <div class="col-sm-offset-3 col-sm-9">
+                    <hr/>
+                    <a class="btn btn-warning btn-raised" ng-if="page._id" href="/admin/page/editor/{{page._id}}">Design Mode</a>
+                    <a class="btn btn-warning btn-raised" ng-if="!page._id" href="/admin/page/editor/new">Design Mode</a>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-3" for="groups">Permitted Groups</label>
+                <div class="col-sm-9">
+                    <ui-select multiple ng-model="page.groups" id="groups" theme="bootstrap" ng-disabled="disabled" >
+                        <ui-select-match placeholder="Select Group...">{{$item.name}}</ui-select-match>
+                        <ui-select-choices repeat="group in groups | filter:$select.search">
+                            {{group.name}}
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-3" for="groups">Permitted Organizations</label>
+                <div class="col-sm-9">
+                    <ui-select multiple ng-model="page.orgs" id="orgs" theme="bootstrap" ng-disabled="disabled" >
+                        <ui-select-match placeholder="Select Organization...">{{$item.name}}</ui-select-match>
+                        <ui-select-choices repeat="org in orgs | filter:$select.search">
+                            {{org.name}}
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-3" for="regions">Permitted Regions</label>
+                <div class="col-sm-9">
+                    <ui-select multiple ng-model="page.regions" id="regions" theme="bootstrap" ng-disabled="disabled" >
+                        <ui-select-match placeholder="Select Region...">{{$item.name}}</ui-select-match>
+                        <ui-select-choices repeat="region in regions | filter:$select.search">
+                            {{region.name}}
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-offset-3 col-sm-9">
+                    <button type="submit" class="btn btn-primary btn-raised " ng-click="savePage()">Save Page</button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+
+</div>

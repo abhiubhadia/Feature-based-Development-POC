@@ -1,0 +1,22 @@
+<div class="main-row row">
+    <div class="col-sm-8">
+        <h1>Navigations List</h1>
+    </div>
+    <div class="col-sm-4 padTop20">
+        <a ui-sref="navigations.new" class="btn btn-default btn-raised pull-right">Add Navigation</a>
+    </div>
+</div>
+<div class="row">
+    <table class="table table-striped table-bordered">
+        <tr>
+            <th>Navigation Name</th>
+            <th>Type</th>
+            <th>Actions</th>
+        </tr>
+        <tr ng-repeat="(key,value) in navigations" >
+            <td>{{value.name}}</td>
+            <td>{{value.type}}</td>
+            <td><a ui-sref="navigations.edit({ 'navigationId': '{{value._id}}' })">Edit</a> / <a ng-click="deleteNavigation(value._id)">Delete</a></td>
+        </tr>
+    </table>
+</div>

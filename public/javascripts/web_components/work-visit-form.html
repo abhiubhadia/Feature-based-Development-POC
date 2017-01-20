@@ -1,0 +1,142 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<dom-module id="work-visit-form">
+    <link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+    <template>
+        <iron-ajax id="getWorkVisit" url="{{rootUrl}}/getWorkVisitById?workVisitId={{fbdReqParams.id}}" handle-as="json" last-response="{{workVisitObject}}"
+                   on-response="setData"></iron-ajax>
+        <iron-ajax id="postWorkVisit" method="POST" url="{{rootUrl}}/submitIbxForm" handle-as="json" body="{{workVisitObject}}"
+                   ></iron-ajax>
+        <iron-ajax auto url="{{rootUrl}}/getIbxList" handle-as="json" last-response="{{ibxList}}"></iron-ajax>
+        <iron-ajax id="getCages" url="{{rootUrl}}/getCages?ibx={{ibxSelected}}" handle-as="json" last-response="{{cageList}}"></iron-ajax>
+
+        <div class="panel panel-default">
+            <div class="panel-heading"><h3 class="title">Work Visit</h3></div>
+            <div class="panel-body">
+
+                <form class="form" id="ibx-form"  role="form">
+                    <div class="form-group">
+                        <label id="label">{{ i18n('Select IBX'); }}</label>
+                        <select id ="ibx-select" data-width="100%" class="form-control"  value="{{workVisitObject.ibxname}}" name="ibxname" placeholder="Select Ibx" on-change="getCages">
+                            <template is="dom-repeat" items="{{ibxList}}" as="ibx">
+                                <option id="{{ibx.id}}">{{i18n(ibx.country);}}</option>
+                            </template>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>{{ i18n('Select Cages'); }}</label>
+                        <select id ="cage-select" data-width="100%" placeholder="Select cage" name="cage" class="form-control">
+                            <template is="dom-repeat" items="{{cageList}}" as="cage">
+                                <option id="{{cage.id}}">{{cage.name}}</option>
+                            </template>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-6 col-xs-12 section-left">
+                            <label>{{ i18n('Start date'); }}</label>
+                            <div class="input-group date" data-provide="datepicker">
+                                <input type="text" name="start_date" class="form-control start-date">
+                                <div class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-xs-12 section-right">
+                            <label>{{ i18n('End date'); }}</label>
+                            <div class="input-group date" data-provide="datepicker">
+                                <input type="text" name="end_date" value="{{workVisitObject.end_date}}" class="form-control end-date">
+                                <div class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>{{ i18n('Name'); }}</label>
+                        <input type="text" class="form-control" id="subject" name="Name" value="{{workVisitObject.Name}}" placeholder="Firstname Lastname" required>
+                    </div>
+                    <div class="form-group">
+                        <label>{{ i18n('Purpose of visit'); }}</label>
+                        <textarea class="form-control" type="textarea" id="message"  name="message" value="{{workVisitObject.message}}" placeholder="Message" maxlength="140" rows="7">{{workVisitObject.message}}</textarea>
+                    </div>
+
+                    <button type="button" id="submit" name="submit" class="btn btn-gray pull-right" on-click="submitForm">Submit Form</button>
+                </form>
+            </div>
+        </div>
+    </template>
+
+    <script>
+        Polymer({
+            is: 'work-visit-form',
+            behaviors: [i18nMixin],
+            properties: {
+				rootUrl: {
+                    type: String
+                },
+                fbdReqParams:{
+                    type:Object
+                },
+                workVisitObject:{
+                    type:Object,
+                    notify: true,
+                    reflectToAttribute: true
+                }
+            },
+            ready:function(){
+
+                this.ibxSelected=$('#ibx-select').val();
+                $('.start-date').datepicker({
+                    startDate: '0',
+                    autoclose: true,
+                    orientation : 'bottom'
+                });
+                $('.end-date').datepicker({
+                    startDate: '0',
+                    autoclose: true,
+                    orientation : 'bottom'
+                });
+                if(this.fbdReqParams!=undefined && this.fbdReqParams.id!=undefined){
+                    this.$.getWorkVisit.generateRequest();
+                }
+
+            },
+            getCages:function(){
+                console.log("inside get cages");
+                this.ibxSelected=$('#ibx-select').val();
+                this.$.getCages.generateRequest();
+            },
+            submitForm:function(e){
+                this.$.postWorkVisit.generateRequest();
+               /* $("#ibx-form").submit(function (e) {
+                    e.preventDefault();
+                    var postData = $(this).serializeArray();
+                    $.ajax(
+                        {
+                            type: 'post',
+                            data: postData,
+                            cache: false,
+                            url: '/submitIbxForm',
+                            success: function (response) {
+                                $('#ibx-form').unbind('submit');
+                            },
+                            error: function (err) {
+                                $('#ibx-form').unbind('submit');
+                                var response = JSON.parse(err.responseText);
+                            }
+                        }
+                    );
+                });
+                $("#ibx-form").submit();*/
+                this.sendData();
+            },
+            setData:function(){
+
+            },
+            sendData: function(){
+                this.fire('send-data', {tag: "data-table", data: {"reload": true}});
+            }
+        });
+    </script>
+
+</dom-module>

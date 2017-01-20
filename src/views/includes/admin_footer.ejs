@@ -1,0 +1,76 @@
+<footer>
+    <div class="container no-padding clearfix">
+        <div class="col-xs-12 footer-border below-footer clearfix">
+            <span class="col-xs-12 no-padding">Equinix &#169; <%= (new Date()).getFullYear() %>
+                All Rights Reserved.</span>
+        </div>
+    </div>
+</footer>
+<div class="scripts">
+    <% if(env === 'development') { %>
+
+    <script src="/javascripts/bower_components/jquery/dist/jquery.js?v=<%= deployVersion %>" type="text/javascript"></script>
+    <script src="/javascripts/bower_components/bootstrap/dist/js/bootstrap.js?v=<%= deployVersion %>" type="text/javascript"></script>
+    <script src="/javascripts/bower_components/bootstrap-select/dist/js/bootstrap-select.js?v=<%= deployVersion %>" type="text/javascript"></script>
+    <script src="/javascripts/bower_components/bootstrap-material-design/dist/js/ripples.min.js"></script>
+    <script src="/javascripts/bower_components/bootstrap-material-design/dist/js/material.min.js"></script>
+
+
+    <!-- Angular dependencies -->
+
+    <script src="/javascripts/bower_components/angular/angular.min.js"></script>
+
+    <!--JQ Tree js-->
+    <script src="/javascripts/bower_components/jqTree/tree.jquery.js"></script>
+
+    <!--Angular UI Select-->
+    <script src="/javascripts/bower_components/ui-select/dist/select.min.js"></script>
+
+    <!--Boot strap switch-->
+    <script src="/javascripts/bower_components/bootstrap-switch/dist/js/bootstrap-switch.min.js"></script>
+    <script src="/javascripts/bower_components/angular-bootstrap-switch/dist/angular-bootstrap-switch.min.js"></script>
+
+    <!--Angular Ace editor-->
+    <script type="text/javascript" src="/javascripts/bower_components/ace-builds/src-min-noconflict/ace.js"></script>
+    <script type="text/javascript" src="/javascripts/bower_components/ace-builds/src-min-noconflict/ext-language_tools.js"></script>
+    <script type="text/javascript" src="/javascripts/bower_components/angular-ui-ace/ui-ace.js"></script>
+
+    <!--Angular application code -->
+    <script src="/javascripts/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script src="/javascripts/admin/admin.js"></script>
+
+    <!--Navigation controller and service-->
+    <script src="/javascripts/admin/navigation/navigation.controller.js"></script>
+    <script src="/javascripts/admin/navigation/navigation.service.js"></script>
+
+    <!--User controller and service-->
+    <script src="/javascripts/admin/users/user.controller.js"></script>
+    <script src="/javascripts/admin/users/user.service.js"></script>
+
+    <!--Workflow controller and service-->
+    <script src="/javascripts/admin/workflows/workflow.controller.js"></script>
+    <script src="/javascripts/admin/workflows/workflow-details.controller.js"></script>
+    <script src="/javascripts/admin/workflows/workflow.service.js"></script>
+
+    <!--Pages controller and service-->
+    <script src="/javascripts/admin/pages/page.controller.js"></script>
+    <script src="/javascripts/admin/pages/page.service.js"></script>
+
+    <script src="/javascripts/admin/admin.controller.js"></script>
+
+
+
+    <script>
+        $(function () {
+            $.material.init();
+
+        });
+    </script>
+
+
+    <% } else { %>
+
+    <% } %>
+</div>
+</body>
+</html>

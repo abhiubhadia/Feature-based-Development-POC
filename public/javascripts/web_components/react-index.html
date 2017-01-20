@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv='Content-type' content='text/html; charset=utf-8'>
+    <title>Port Summary</title>
+</head>
+<body>
+<div id="container">
+
+</div>
+
+<script src="../bower_components/webcomponentsjs/webcomponents.js"></script>
+<script src="../bower_components/react/react.js"></script>
+<script src="../bower_components/react/react-dom.js"></script>
+
+<script type="text/babel">
+
+    // Define WebComponent
+    var displayHeader = Object.create(HTMLElement.prototype, {
+        createdCallback: {
+            value: function () {
+                var header = this.getAttribute('header');
+                console.log(header.length);
+                var mountPoint = document.createElement('thead');
+                this.createShadowRoot().appendChild(mountPoint);
+                var headerDisplay = header.map(function (headerTitle, index) {
+                    return (
+                    <th key={index}>{headerTitle}</th>
+                    )
+
+                });
+                ReactDOM.render(
+                <tr>{headerDisplay}</tr>,
+                mountPoint
+                )
+                ;
+            }
+        }
+    });
+    document.registerElement('display-header', {prototype: displayHeader});
+
+    var friendsList = Object.create(HTMLElement.prototype, {
+        createdCallback: {
+            value: function () {
+                var friends = ['John', 'Windstorm', 'Mike', 'Melissa'];
+                console.log(friends.length);
+                var mountPoint = document.createElement('div');
+                this.createShadowRoot().appendChild(mountPoint);
+                var friendsDisplay = friends.map(function (friend, index) {
+                    return (
+                    <th key={index}>{friend}</li>
+                    )
+
+                });
+                ReactDOM.render(
+                <ul>{friendsDisplay}</ul>,
+                mountPoint
+                )
+                ;
+
+            }
+        }
+    });
+    document.registerElement('friends-list', {prototype: friendsList});
+
+    // Define React Component
+    class PostSummary extends React.Component {
+        render() {
+            return (
+                <div class="row">
+                    <div class="col-sm-12 col-xs-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading"><h3>{this.props.title}</h3></div>
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-striped">
+                                        <display-header header={this.props.header}></display-header>
+                                        <tbody>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    <div>
+                </div>)
+        }
+    }
+
+
+    // Mount React Component (which uses WebComponent which uses React)
+    var container = document.getElementById('container');
+    ReactDOM.render( < PostSummary title = "Port Summary" header="['Location','Port','Cu.In','Cu.Out','Avg.In','Avg.Out']"/ >, container);
+</script>
+</body>
+</html>

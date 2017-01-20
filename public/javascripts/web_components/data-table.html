@@ -1,0 +1,134 @@
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+<dom-module id="data-table">
+
+    <template>
+            <iron-ajax id="fetchList"
+                    auto
+                    url="{{rootUrl}}/getWorkVisitList"
+                    handle-as="json"
+                    last-response="{{workVisitList}}"></iron-ajax>
+
+        <style>
+            .btn-group, .btn-group-vertical {
+                margin-top:-7px;
+                float: right;
+            }
+            .btn-group > a{
+                color:#fff;
+            }
+        </style>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="title">{{moduleName}}
+                    <template is="dom-if" if="{{isExport}}">
+                        <div class="btn-group">
+                            <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                                Export
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#" on-click="exportHTML">HTML</a></li>
+                                <li><a href="#">PDF</a></li>
+                            </ul>
+                        </div>
+                     </template>
+                </h3>
+
+            </div>
+            <div class="panel-body">
+
+                <div class="table-responsive" id="{{tableName}}">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <template is="dom-repeat" items="{{tableHeader}}" as="workVisitHeaders">
+                                    <th>{{workVisitHeaders}}</th>
+                                </template>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template is="dom-repeat" items="{{workVisitList}}" as="workVisit">
+                                <tr>
+                                    <!--<th scope="row">{{index}}</th>-->
+                                    <td>{{workVisit.ibxname}}</td>
+                                    <td>{{workVisit.cage}}</td>
+                                    <td>{{workVisit.start_date}}</td>
+                                    <td>{{workVisit.end_date}}</td>
+                                    <td>{{workVisit.Name}}</td>
+                                    <td>{{workVisit.message}}</td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <script>
+        Polymer({
+            is: 'data-table',
+            properties: {
+                reload: {
+                    type: String,
+                    notify: true,
+                    reflectToAttribute: true,
+                    observer: '_refetchData'
+                },
+                moduleName : String,
+                tableName : String,
+                tableHeader : {"value":["IBX Name","Cage","Start Date","End Date","Name","Message"]},
+                isExport : {
+                    type: Boolean,
+                    value: false
+                },
+                isAjax : {
+                    type: Boolean,
+                    value: true
+                },
+                rootUrl:{
+                    type:String
+                },
+                url: {
+                    type: String,
+                    value:"{{rootUrl}}/getWorkVisitList"
+                }
+            },
+            ready:function(){
+
+            },
+            exportHTML:function(tableName){
+                var filename = 'report.html';
+                var elId = 'test';
+                var mimeType = 'text/html' || 'text/plain';
+
+                var elHtml = document.getElementById(elId).innerHTML;
+                var link = document.createElement('a');
+                mimeType = mimeType || 'text/plain';
+
+                link.setAttribute('download', filename);
+                link.setAttribute('href', 'data:' + mimeType + ';charset=utf-8,' + encodeURIComponent(elHtml));
+                link.click();
+            },
+            exportPDF:function(){
+                var doc = new jsPDF();
+                var specialElementHandlers = {};
+
+                doc.fromHTML($('#test').html(), 15, 15, {
+                    'width': 170,
+                    'elementHandlers': specialElementHandlers
+                });
+
+                doc.save('table.pdf');
+            },
+            _refetchData: function(){
+                if(this.reload){
+                    this.$.fetchList.generateRequest();
+                    this.reload = false;
+                }
+            }
+        });
+    </script>
+
+</dom-module>

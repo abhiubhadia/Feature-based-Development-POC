@@ -1,0 +1,36 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="virtual-circuits-form.html">
+<link rel="import" href="data-table-vc.html">
+
+<dom-module id="virtual-circuits">
+    <template>
+        <div class="row mar-t-20">
+            <div class="col-sm-12 col-xs-12">
+                <virtual-circuits-form></virtual-circuits-form>
+            </div>
+            <div class="col-sm-12 col-xs-12">
+                <data-table-vc is-ajax url="{{rootUrl}}/getVcList" module-name="Virtual Circuits"></data-table-vc>
+            </div>
+        </div>
+    </template>
+
+    <script>
+
+        (function () {
+            'use strict';
+            Polymer({
+                is: 'virtual-circuits',
+                properties: {
+					rootUrl: {
+                        type: String
+                    }
+                },
+                ready:function(){
+
+
+                }
+            });
+        })();
+    </script>
+
+</dom-module>

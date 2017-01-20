@@ -1,0 +1,85 @@
+<header class="col-sm-12 col-xs-12 header-top">
+    <div class="container">
+        <div class="col-sm-5 col-xs-6 sub-header">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#">
+                        <span class="glyphicon glyphicon-user"></span>
+                        <span class="hidden-sm hidden-xs header-text">Customer Login</span>
+                    </a>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                       aria-haspopup="true" aria-expanded="false">
+                        <span class="glyphicon glyphicon-globe"></span>
+                        <span class="hidden-sm hidden-xs header-text locale-text">United States – English</span>
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#" class="locale" data="en">United States – English</a></li>
+                        <li><a href="#" class="locale" data="es">Mexico – Spanish</a></li>
+                    </ul>
+                </li>
+                <li><a><span class="glyphicon glyphicon-search"></span></a></li>
+            </ul>
+        </div>
+    </div>
+</header>
+<div class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-8 col-sm-2">
+                <div class="brand">
+                    <a href="#">
+                        <img src="/images/logo.png">
+                    </a>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-10">
+                <nav class="navbar navbar-default">
+                    <div class="container-fluid no-side-padding">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                        </div>
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            <ul class="nav navbar-nav navbar-right">
+                                <% if(menu){ menu.forEach(function(menuItem) { if(menuItem.enabled) {%>
+                                <li>
+                                    <% if((menuItem.contextPath).indexOf('/')!=-1){ %>
+                                        <a href="<%= menuItem.contextPath %>"><%= menuItem.name %></a>
+                                    <%}else{%>
+                                        <a href="/app/<%= menuItem.contextPath %>"><%= menuItem.name %></a>
+                                    <%}%>
+                                <% if(menuItem.children && menuItem.children.length>0){ %>
+                                        <ul>
+                                            <% menuItem.children.forEach(function(childMenu) { if(childMenu.enabled) {%>
+                                            <li>
+                                                <% if((childMenu.contextPath).indexOf('/')!=-1){ %>
+                                                    <a href="<%= childMenu.contextPath %>"><%= childMenu.name %></a>
+                                                <%}else{%>
+                                                    <a href="/app/<%= childMenu.contextPath %>"><%= childMenu.name %></a>
+                                                <%}%>
+                                            </li>
+                                            <% }}); %>
+                                        </ul>
+
+                                <% } %>
+                                </li>
+                                <%
+                                }}); } %>
+
+                            </ul>
+                        </div><!-- /.navbar-collapse -->
+                    </div><!-- /.container-fluid -->
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>

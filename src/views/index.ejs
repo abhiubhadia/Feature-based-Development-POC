@@ -1,0 +1,28 @@
+<%- contentFor('body') %>
+<link rel="import" href="javascripts/web_components/work-visit-form.html">
+<link rel="import" href="javascripts/web_components/sample.html">
+<link rel="import" href="javascripts/web_components/data-table.html">
+<div class="container">
+    <div class="row main-row">
+        <input type="hidden" value="<%= language %>">
+        <h3 style="margin-left: 10px;">You are using Desktop</h3>
+        <div class="col-sm-6 col-xs-12">
+            <work-visit-form></work-visit-form>
+        </div>
+        <div class="col-sm-6 col-xs-12">
+            <data-table is-ajax url="getWorkVisitList" module-name="Work Visit"></data-table>
+        </div>
+        <div class="col-sm-6 col-xs-12">
+            <sample-page></sample-page>
+
+            <!-- BEGIN: Lazily Loaded Module. -->
+            <p class="m-help">
+                Need help? <a href="#">Check out our FAQs</a>.
+            </p>
+            <!-- END: Lazily Loaded Module. -->
+
+            <div id="faq" class="col-sm-12"></div>
+
+        </div>
+    </div>
+</div>

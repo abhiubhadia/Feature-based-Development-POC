@@ -1,0 +1,15 @@
+{
+  "app": {
+    "Select IBX": "Seleccione IBX",
+    "Select Cages": "Seleccione Jaulas",
+    "Start date": "Fecha de inicio",
+    "End date": "Fecha final",
+    "Name": "Nombre",
+    "Purpose of visit": "Propósito de la visita",
+    "Brazil":"Brasil",
+    "China":"China",
+    "Greece":"Greece",
+    "France":"Francia"
+
+  }
+}

@@ -1,0 +1,60 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/google-map/google-map.html">
+<link rel="import" href="../bower_components/google-map/google-map-marker.html">
+<link rel="import" href="../bower_components/google-map/google-map-poly.html">
+<link rel="import" href="../bower_components/google-map/google-map-directions.html">
+
+<dom-module id="equinix-location">
+    <style>
+        google-map {
+            height: 450px;
+        }
+    </style>
+    <template>
+        <div class="col-sm-12 col-xs-12 no-side-padding">
+            <div class="panel panel-default">
+                <div class="panel-heading"><h3 class="title">Locations</h3></div>
+                <div class="panel-body">
+                    <div class="col-sm-12 col-xs-12">
+                        <div class="overview">
+                            <div class="overviewText">
+                                <p>Equinix operates 100+ data centers on five continents, allowing us to locate your company at the gateways of emerging economies or at the center of whatever global business is your business.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xs-12">
+                        <google-map latitude="37.77493" longitude="-122.41942" zoom="2">
+                            <google-map-marker latitude="40.71" longitude="-74" title="New york"></google-map-marker>
+                            <google-map-marker latitude="39.9" longitude="116.4" title="Beijing"></google-map-marker>
+                            <google-map-marker latitude="31.23" longitude="121.47" title="Shanghai"></google-map-marker>
+                            <google-map-marker latitude="-33.86" longitude="151.2" title="Sydney"></google-map-marker>
+                            <google-map-marker latitude="-37.81" longitude="144.96" title="Melbourne"></google-map-marker>
+                            <google-map-marker latitude="37.33" longitude="-121.89" title="San Jose"></google-map-marker>
+                            <google-map-marker latitude="25.0266329" longitude="55.1866604" title="Dubai"></google-map-marker>
+                            <google-map-marker latitude="49.8540561" longitude="3.814051" title="Munchen,Germany"></google-map-marker>
+                        </google-map>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <script>
+
+        (function () {
+            'use strict';
+            Polymer({
+                is: 'equinix-location',
+                properties: {
+                    rootUrl: {
+                        type: String
+                    }
+                },
+                ready:function(){
+
+                }
+            });
+        })();
+    </script>
+
+</dom-module>

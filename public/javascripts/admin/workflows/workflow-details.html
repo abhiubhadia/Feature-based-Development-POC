@@ -1,0 +1,144 @@
+<h2>Add/Update Component Details</h2>
+<div class="alert alert-dismissible hidden" role="alert"></div>
+<form class="form-horizontal well" id="workflowDeatils">
+    <div class="form-group">
+        <label class="control-label col-sm-3" for="workflowName">Component Name</label>
+        <div class="col-sm-9">
+            <input type="text" id="workflowName" name="workflowName" ng-model="workflow.name" class="form-control"
+                   placeholder="Enter a name for the workflow" required="required">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-3" for="description">Component Description</label>
+        <div class="col-sm-9">
+            <input type="text" id="description" name="workflowName" ng-model="workflow.description" class="form-control"
+                   placeholder="Enter a description for the workflow" required="required">
+        </div>
+    </div>
+    <!--<div class="form-group">
+        <label class="control-label col-sm-3" for="path">Context Path</label>
+        <div class="col-sm-9">
+            <input type="text" id="path" name="path" ng-model="workflow.path" class="form-control"
+                   placeholder="Enter the context path for the component" required="required">
+        </div>
+    </div>-->
+    <div class="form-group">
+        <label class="control-label col-sm-3" for="dom">Component Tag</label>
+        <div class="col-sm-9">
+            <input type="text" id="dom" name="dom" ng-model="workflow.domSyntax" class="form-control"
+                   placeholder="Enter the tag to be used">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-3" for="temp">Component Template</label>
+        <div class="col-sm-9">
+            <textarea id="temp" name="temp" ng-model="workflow.template" class="form-control"
+                   placeholder="Enter the template of the component"></textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-3" for="version">Version</label>
+        <div class="col-sm-9">
+            <input type="text" id="version" name="version" ng-model="workflow.version" class="form-control"
+                   placeholder="Enter the version of the componet">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-3" for="mobileEnabled">Enable in Mobile</label>
+        <div class="col-sm-9">
+            <input id="mobileEnabled"
+                    bs-switch
+                    ng-model="workflow.mobileEnabled"
+                    type="checkbox"
+                    switch-size="normal"
+            ></td>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-3" for="apiUrl">API Url</label>
+        <div class="col-sm-9">
+            <input type="text" id="apiUrl" name="version" ng-model="workflow.apiUrl" class="form-control"
+                   placeholder="Enter the base rest end point for the component">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-3" for="webSource">Web Source</label>
+        <div class="col-sm-9">
+            <input type="text" id="webSource" name="webSource" ng-model="workflow.webSource" class="form-control"
+                   placeholder="Enter the source location for web">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-3" for="mWebSource">Mobile Web Source</label>
+        <div class="col-sm-9">
+            <input type="text" id="mWebSource" name="mWebSource" ng-model="workflow.mWebSource" class="form-control"
+                   placeholder="Enter the source location for mobile website">
+        </div>
+    </div>
+    <!--<div class="form-group">
+        <label class="control-label col-sm-3" for="showInNavigation">Show in Navigation</label>
+        <div class="col-sm-9">
+            <input id="showInNavigation"
+                   bs-switch
+                   ng-model="workflow.showInNavigation"
+                   type="checkbox"
+                   switch-size="normal"
+            ></td>
+        </div>
+    </div>-->
+    <div class="form-group">
+        <label class="control-label col-sm-3" for="appSource">Android App Source</label>
+        <div class="col-sm-9">
+            <input type="text" id="appSource" name="appSource" ng-model="workflow.mobileAppSource" class="form-control"
+                   placeholder="Enter the source location for android application">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-3" for="appIOSSource">IOS App Source</label>
+        <div class="col-sm-9">
+            <input type="text" id="appIOSSource" name="appSource" ng-model="workflow.mobileIOSAppSource" class="form-control"
+                   placeholder="Enter the source location for ios application">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-sm-3" for="groups">Permitted Groups</label>
+        <div class="col-sm-9">
+            <ui-select multiple ng-model="workflow.groups" id="groups" theme="bootstrap" ng-disabled="disabled" >
+                <ui-select-match placeholder="Select Group...">{{$item.name}}</ui-select-match>
+                <ui-select-choices repeat="group in groups | filter:$select.search">
+                    {{group.name}}
+                </ui-select-choices>
+            </ui-select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-sm-3" for="groups">Permitted Organizations</label>
+        <div class="col-sm-9">
+            <ui-select multiple ng-model="workflow.orgs" id="orgs" theme="bootstrap" ng-disabled="disabled" >
+                <ui-select-match placeholder="Select Organization...">{{$item.name}}</ui-select-match>
+                <ui-select-choices repeat="org in orgs | filter:$select.search">
+                    {{org.name}}
+                </ui-select-choices>
+            </ui-select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-sm-3" for="regions">Permitted Regions</label>
+        <div class="col-sm-9">
+            <ui-select multiple ng-model="workflow.regions" id="regions" theme="bootstrap" ng-disabled="disabled" >
+                <ui-select-match placeholder="Select Region...">{{$item.name}}</ui-select-match>
+                <ui-select-choices repeat="region in regions | filter:$select.search">
+                    {{region.name}}
+                </ui-select-choices>
+            </ui-select>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-3 col-sm-9">
+            <button type="submit" class="btn btn-primary btn-raised" ng-click="saveWorkflow()">Save Workflow</button>
+        </div>
+    </div>
+</form>

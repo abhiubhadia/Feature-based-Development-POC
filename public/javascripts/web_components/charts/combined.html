@@ -1,0 +1,109 @@
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+<dom-module id="area-chart">
+    <template>
+        <div class="row">
+        <div class="col-sm-6 text-center">
+            <label class="label label-success">Area Chart</label>
+            <div id="area" ></div>
+        </div>
+        <div class="col-sm-6 text-center">
+            <label class="label label-success">Line Chart</label>
+            <div id="line"></div>
+        </div>
+        <div  class="col-sm-6 text-center">
+            <label class="label label-success">Bar Chart</label>
+            <div id="bar" ></div>
+        </div>
+        <div class="col-sm-6 text-center">
+            <label class="label label-success">Bar stacked</label>
+            <div id="stacked" ></div>
+        </div>
+        <div class="col-sm-6 col-sm-offset-3 text-center">
+            <label class="label label-success">Pie Chart</label>
+            <div id="pie" ></div>
+        </div>
+
+        </div>
+    </template>
+    <script>
+
+        Polymer({
+            is: 'area-chart',
+            properties: {
+                reload: {
+                    type: String,
+                    notify: true,
+                    reflectToAttribute: true,
+                    observer: '_refreshData'
+                },
+                rootUrl: {
+                    type: String
+                },
+                orderData: {
+                    type: Array
+                }
+            },
+
+            ready: function () {
+                setTimeout(this._draw(),2000);
+            },
+            _draw: function () {
+                var areaChart=this.$.area;
+                var line=this.$.line;
+                var bar=this.$.bar;
+                var stacked=this.$.stacked;
+                var pie=this.$.pie;
+
+
+                var data = [
+                            { y: '2014', a: 50, b: 90},
+                            { y: '2015', a: 65,  b: 75},
+                            { y: '2016', a: 50,  b: 50},
+                            { y: '2017', a: 75,  b: 60},
+                            { y: '2018', a: 80,  b: 65},
+                            { y: '2019', a: 90,  b: 70},
+                            { y: '2020', a: 100, b: 75},
+                            { y: '2021', a: 115, b: 75},
+                            { y: '2022', a: 120, b: 85},
+                            { y: '2023', a: 145, b: 85},
+                            { y: '2024', a: 160, b: 95}
+                        ],
+                        config = {
+                            data: data,
+                            xkey: 'y',
+                            ykeys: ['a', 'b'],
+                            labels: ['Total Income', 'Total Outcome'],
+                            fillOpacity: 0.6,
+                            hideHover: 'auto',
+                            behaveLikeLine: true,
+                            resize: true,
+                            pointFillColors:['#ffffff'],
+                            pointStrokeColors: ['black'],
+                            lineColors:['gray','red']
+                        };
+                config.element = areaChart;
+                Morris.Area(config);
+                config.element = line;
+                Morris.Line(config);
+                config.element = bar;
+                Morris.Bar(config);
+                config.element = stacked;
+                config.stacked = true;
+                Morris.Bar(config);
+                Morris.Donut({
+                    element: pie,
+                    data: [
+                        {label: "Friends", value: 30},
+                        {label: "Allies", value: 15},
+                        {label: "Enemies", value: 45},
+                        {label: "Neutral", value: 10}
+                    ]
+                });
+
+            },
+            _refreshData: function () {
+
+            }
+        });
+    </script>
+</dom-module>

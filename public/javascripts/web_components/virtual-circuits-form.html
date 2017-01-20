@@ -1,0 +1,177 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<dom-module id="virtual-circuits-form">
+    <link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+    <template>
+
+        <iron-ajax auto url="{{rootUrl}}/getMetroList" handle-as="json" last-response="{{metroList}}"></iron-ajax>
+        <iron-ajax id="getServicesByMetro" url="{{rootUrl}}/getServicesByMetro?metro={{metroSelected}}" handle-as="json" last-response="{{serviceList}}"></iron-ajax>
+        <iron-ajax auto url="{{rootUrl}}/getPortsByMetro" handle-as="json" last-response="{{portList}}"></iron-ajax>
+
+        <div class="panel panel-default">
+            <div class="panel-heading"><h3 class="title">Create Connection</h3></div>
+            <div class="panel-body">
+                <form class="form" id="vc-form"  role="form">
+                    <div class="col-sm-6 col-xs-12">
+                        <h4>Location & Service</h4>
+                        <h5>Enter the details for the location and service type for this Virtual Circuit.</h5>
+                        <div class="form-group">
+                            <label >Metro</label>
+                            <select id ="metro-select" data-width="100%" class="form-control"  name="metro" placeholder="Select Metro" on-change="getServicesByMetro">
+                                <template is="dom-repeat" items="{{metroList}}" as="metro">
+                                    <option id="{{metro.id}}" value="{{metro.name}}">{{metro.name}}</option>
+                                </template>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Service</label>
+                            <select id ="service-select" data-width="100%" placeholder="Select a Service" name="serviceType" class="form-control">
+                                <template is="dom-repeat" items="{{serviceList}}" as="service">
+                                    <option value="{{service.name}}">{{service.name}}</option>
+                                </template>
+                            </select>
+                        </div>
+
+                        <h4>Primary Buyer-Side Information</h4>
+                        <h5>Enter the buyer side information for this Virtual Circuit.</h5>
+                        <div class="form-group">
+                            <label>Primary Service Name*</label>
+                            <input type="text" class="form-control" id="primaryServiceName" name="primaryServiceName" placeholder="Enter a name for your Virtual Circuit (24 characters max)" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Primary Buyer-Side Port*</label>
+                            <select id ="service-select1" data-width="100%" placeholder="Select one of your port" name="primaryASidePort" class="form-control">
+                                <template is="dom-repeat" items="{{portList}}" as="port">
+                                    <option value="{{port.name}}" label="{{port.name}}">{{port.name}}</option>
+                                </template>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Primary Buyer-Side VLAN ID (Tag)*</label>
+                            <input type="text" class="form-control" id="primaryAsideId" name="primaryAsideId" placeholder="Enter Buyer-Side VLAN ID (Range: 1 to 4094)" required>
+                        </div>
+
+                        <h4>Secondary Buyer-Side Information</h4>
+                        <h5>Enter the details for the secondary Buyer-Side port for this order.</h5>
+                        <div class="form-group">
+                            <label>Secondary Service Name*</label>
+                            <input type="text" class="form-control" id="secondryServiceName" name="secondryServiceName" placeholder="Enter a name for your Virtual Circuit (24 characters max)" required>
+                        </div>
+
+                    </div>
+                    <div class="col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label>Secondary Buyer-Side Port*</label>
+                            <select id ="service-select2" data-width="100%" placeholder="Select one of your port" name="secondryASidePort" class="form-control">
+                                <template is="dom-repeat" items="{{portList}}" as="port1">
+                                    <option value="{{port1.name}}" label="{{port1.name}}">{{port1.name}}</option>
+                                </template>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Secondary Buyer-Side VLAN ID (Tag)*</label>
+                            <!--<input type="text" class="form-control" id="subject" name="Name" placeholder="Firstname Lastname" required>-->
+                        </div>
+
+                        <h4>Seller-Side Information</h4>
+                        <h5>Enter seller-provided credentials and information for this Virtual Circuit here.</h5>
+                        <div class="form-group">
+                            <label>Service Key*</label>
+                            <input type="text" class="form-control" id="serviceKeyZside" name="serviceKeyZside" placeholder="Enter the service key" required>
+                        </div>
+
+                        <h4>Virtual Circuit Speed*</h4>
+                        <h5>Please select the speed you are requesting for this Virtual Circuit.</h5>
+                        <div class="form-group">
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="virtualCircuitSpeed" id="optionsRadios1" value="Up to 200 Mbps" checked>
+                                    Up to 200 Mbps
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="virtualCircuitSpeed" id="optionsRadios2" value="Up to 500 Mbps">
+                                    Up to 500 Mbps
+                                </label>
+                            </div>
+                            <div class="radio disabled">
+                                <label>
+                                    <input type="radio" name="virtualCircuitSpeed" id="optionsRadios3" value="Up to 1 Gbps">
+                                    Up to 1 Gbps
+                                </label>
+                            </div>
+                        </div>
+
+                        <h4>Email</h4>
+                        <h5>Enter the email address that will receive notification when the Virtual Circuit is provisioned. You can add additional email addresses separated by a comma.</h5>
+                        <div class="form-group">
+                            <label>Service Key*</label>
+                            <input type="text" class="form-control" id="email" name="email" placeholder="Enter your email address" required>
+                        </div>
+                        <h6>* Indicates required fields</h6>
+                        <button type="button" id="submit" name="submit" class="btn btn-gray pull-right" on-click="createAzure">Create Virtual Circuit</button>
+                </div>
+                </form>
+            </div>
+        </div>
+
+
+
+    </template>
+
+    <script>
+        Polymer({
+            is: 'virtual-circuits-form',
+            properties: {
+                rootUrl: {
+                    type: String
+                }
+            },
+            ready:function(){
+                $('.start-date').datepicker({
+                    startDate: '0',
+                    autoclose: true,
+                    orientation : 'bottom'
+                });
+                $('.end-date').datepicker({
+                    startDate: '0',
+                    autoclose: true,
+                    orientation : 'bottom'
+                });
+            },
+            getServicesByMetro:function(){
+                //console.log("inside get cages");
+                this.metroSelected=$('#metro-select').find('option:selected').attr('id');
+                this.$.getServicesByMetro.generateRequest();
+            },
+            createAzure:function(e){
+                $("#vc-form").submit(function (e) {
+                    e.preventDefault();
+                    var postData = $(this).serializeArray();
+                    $.ajax(
+                            {
+                                type: 'post',
+                                data: postData,
+                                cache: false,
+                                url: '/createVirtualCircuit',
+                                success: function (response) {
+                                    $('#vc-form').unbind('submit');
+                                },
+                                error: function (err) {
+                                    $('#vc-form').unbind('submit');
+                                    var response = JSON.parse(err.responseText);
+                                }
+                            }
+                    );
+                });
+                $("#vc-form").submit();
+                this.sendData();
+            },
+            sendData: function(){
+                this.fire('send-data', {tag: "data-table-vc", data: {"reload": true}});
+            }
+        });
+    </script>
+
+</dom-module>

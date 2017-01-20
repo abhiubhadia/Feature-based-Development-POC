@@ -1,0 +1,61 @@
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+<dom-module id="bar-chart">
+    <template>
+        <iron-ajax id="getBarChart"
+                   auto
+                   url="{{rootUrl}}/getBarChart"
+                   handle-as="json"
+                   on-response="_draw"
+                   last-response="{{barChartData}}"></iron-ajax>
+        <div class="panel panel-default">
+            <div class="panel-heading">VC & Ports Chart</div>
+            <div class="panel-body chart-panel">
+                    <div id="barChart"></div>
+            </div>
+        </div>
+    </template>
+    <script>
+
+        Polymer({
+            is: 'bar-chart',
+            properties: {
+                reload: {
+                    type: String,
+                    notify: true,
+                    reflectToAttribute: true,
+                    observer: '_refreshData'
+                },
+                rootUrl: {
+                    type: String
+                },
+                barChartData: {
+                    type: Array,
+                    notify: true,
+                    reflectToAttribute: true
+                }
+            },
+
+            ready: function () {
+
+            },
+            _draw: function () {
+                var barChart=this.$.barChart;
+                var data=this.barChartData;
+                Morris.Bar({
+                    element: barChart,
+                    data: data,
+                    xkey: 'y',
+                    ykeys: ['a', 'b'],
+                    labels: ['Virtual Circuits', 'Ports'],
+                    barColors: ['#666666','#f0ad4e'],
+                    resize: true,
+                    redraw: true
+                });
+
+            },
+            _refreshData: function () {
+
+            }
+        });
+    </script>
+</dom-module>

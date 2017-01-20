@@ -1,0 +1,62 @@
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+<dom-module id="line-chart">
+    <template>
+        <iron-ajax id="getLineChart"
+                   auto
+                   url="{{rootUrl}}/getLineChart"
+                   handle-as="json"
+                   on-response="_draw"
+                   last-response="{{lineChartData}}"></iron-ajax>
+        <div class="panel panel-default">
+            <div class="panel-heading">Orders Chart</div>
+            <div class="panel-body chart-panel">
+                    <div id="lineChart"></div>
+            </div>
+        </div>
+    </template>
+    <script>
+
+        Polymer({
+            is: 'line-chart',
+            properties: {
+                reload: {
+                    type: String,
+                    notify: true,
+                    reflectToAttribute: true,
+                    observer: '_refreshData'
+                },
+                rootUrl: {
+                    type: String
+                },
+                lineChartData: {
+                    type: Array,
+                    notify: true,
+                    reflectToAttribute: true
+                }
+            },
+
+            ready: function () {
+
+            },
+            _draw: function () {
+                var lineChart=this.$.lineChart;
+                var data=this.lineChartData;
+                Morris.Line({
+                    element: lineChart,
+                    data: data,
+                    xkey: 'y',
+                    ykeys: ['a', 'b','c'],
+                    labels: ['Completed Orders', 'Pending Orders','New Orders'],
+                    lineColors: ['#0D47A1','#F39C12','#E65100'],
+                    lineWidth: '3px',
+                    resize: true,
+                    redraw: true
+                });
+
+            },
+            _refreshData: function () {
+
+            }
+        });
+    </script>
+</dom-module>

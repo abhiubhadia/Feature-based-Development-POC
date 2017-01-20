@@ -1,0 +1,30 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="data-table.html">
+
+<dom-module id="port-summary">
+    <template>
+        <div class="row mar-t-20">
+            <data-table is-ajax url="{{rootUrl}}/getWorkVisitList" module-name="Port Summary"></data-table>
+        </div>
+    </template>
+
+    <script>
+
+        (function () {
+            'use strict';
+            Polymer({
+                is: 'port-summary',
+                properties: {
+					rootUrl: {
+                        type: String
+                    }
+                },
+                ready:function(){
+
+
+                }
+            });
+        })();
+    </script>
+
+</dom-module>

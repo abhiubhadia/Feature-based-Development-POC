@@ -1,0 +1,63 @@
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+<dom-module id="donut-chart">
+    <template>
+        <iron-ajax id="getDonutChart"
+                   auto
+                   url="{{rootUrl}}/getDonutChart"
+                   handle-as="json"
+                   on-response="_draw"
+                   last-response="{{donutChartData}}"></iron-ajax>
+        <div class="panel panel-default">
+            <div class="panel-heading">Sales Chart</div>
+            <div class="panel-body chart-panel">
+                    <div id="donutChart"></div>
+            </div>
+        </div>
+    </template>
+    <script>
+
+        Polymer({
+            is: 'donut-chart',
+            properties: {
+                reload: {
+                    type: String,
+                    notify: true,
+                    reflectToAttribute: true,
+                    observer: '_refreshData'
+                },
+                rootUrl: {
+                    type: String
+                },
+                donutChartData: {
+                    type: Array,
+                    notify: true,
+                    reflectToAttribute: true
+                },
+                chartColors:{
+                    type:Array,
+                    value:['#e5412d', '#f0ad4e', '#444', '#888','#555','#999','#bbb','#ccc','#eee']
+                }
+            },
+
+            ready: function () {
+
+            },
+            _draw: function () {
+                var donutChart=this.$.donutChart;
+                var data= this.donutChartData;
+                var colors=this.chartColors;
+                Morris.Donut({
+                    element: donutChart,
+                    data: data,
+                    colors:colors,
+                    resize: true,
+                    redraw: true
+                });
+
+            },
+            _refreshData: function () {
+
+            }
+        });
+    </script>
+</dom-module>

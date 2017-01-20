@@ -1,0 +1,75 @@
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="badge.html">
+<link rel="import" href="charts/bar-chart.html">
+<link rel="import" href="charts/area-chart.html">
+<link rel="import" href="charts/line-chart.html">
+<link rel="import" href="charts/donut-chart.html">
+<dom-module id="dashboard-charts">
+    <template>
+        <iron-ajax id="getOrderData"
+                   url="{{rootUrl}}/getOrderData"
+                   handle-as="json"
+                   last-response="{{orderData}}"></iron-ajax>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 col-xs-12 no-side-padding">
+                    <div class="col-sm-6 col-xs-12 mar-tb-10">
+                        <badge-with-count title="Total Revenue" class-name="bg-inverse" icon-name="glyphicon-usd" badge-count="$12,2000"></badge-with-count>
+                    </div>
+                    <div class="col-sm-6 col-xs-12 mar-tb-10">
+                        <badge-with-count title="New Orders" class-name="bg-primary" icon-name="glyphicon-shopping-cart" badge-count="1000"></badge-with-count>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-xs-12 no-side-padding">
+                    <div class="col-sm-6 col-xs-12 mar-tb-10">
+                        <badge-with-count title="User Visits" class-name="bg-inverse" icon-name="glyphicon-user" badge-count="2000"></badge-with-count>
+                    </div>
+                    <div class="col-sm-6 col-xs-12 mar-tb-10">
+                        <badge-with-count title="Total Sales" class-name="bg-primary" icon-name="glyphicon-signal" badge-count="12000"></badge-with-count>
+                    </div>
+                </div>
+            </div>
+            <div class="row mar-t-20">
+                <div class="col-sm-7 col-xs-12">
+                    <area-chart></area-chart>
+                </div>
+                <div class="col-sm-5 col-xs-12">
+                    <donut-chart></donut-chart>
+                </div>
+            </div>
+            <div class="row mar-t-20">
+                <div class="col-sm-6 col-xs-12">
+                    <bar-chart></bar-chart>
+                </div>
+                <div class="col-sm-6 col-xs-12">
+                    <line-chart></line-chart>
+                </div>
+            </div>
+        </div>
+    </template>
+    <script>
+
+        Polymer({
+            is: 'dashboard-charts',
+            properties: {
+                reload: {
+                    type: String,
+                    notify: true,
+                    reflectToAttribute: true,
+                    observer: '_refreshData'
+                },
+                rootUrl: {
+                    type: String
+                }
+            },
+
+            ready: function () {
+
+
+            },
+            _refreshData: function () {
+
+            }
+        });
+    </script>
+</dom-module>

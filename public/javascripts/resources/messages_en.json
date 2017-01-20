@@ -1,0 +1,14 @@
+{
+  "app": {
+    "Select IBX": "Select IBX",
+    "Select Cages": "Select Cages",
+    "Start date": "Start date",
+    "End date": "End date",
+    "Name": "Name",
+    "Purpose of visit": "Purpose of visit",
+    "Brazil":"Brazil",
+    "China":"China",
+    "Greece":"Greece",
+    "France":"France"
+  }
+}

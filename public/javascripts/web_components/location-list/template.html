@@ -1,0 +1,42 @@
+<div class="row mar-t-20">
+    <div class="col-sm-12 col-xs-12">
+        <div class="panel panel-default">
+            <div class="panel-heading"><h3 class="title">{{panelHeader}}</h3></div>
+            <div class="panel-body">
+                <div class="col-sm-12 col-xs-12">
+                    <section data-cols="12">
+                        <!-- EQ Table Contents -->
+                        <div class="eq-table-flex">
+                            <table *ngFor="#datacenter of dataCenters" class="table">
+                                <!-- Header Row -->
+                                <thead>
+                                <th style="border-top:none">{{datacenter.locationName}}</th>
+                                </thead>
+                                <!-- Header Row (@end) --><!-- Row 1 -->
+                                <tbody>
+
+                                <tr *ngFor="#n of [1,2];#i = index">
+                                    <!-- Column 1: SV1 -->
+                                    <td style="border-top:none" *ngFor="#centerLocation of datacenter.locationAddress | slice:i*4:i*4+4">
+                                        <div itemscope="" itemtype="http://schema.org/LocalBusiness">
+                                            <span class="locationName" itemprop="name">{{centerLocation.name}}</span>
+                                            <div itemprop="address" itemscope="" itemtype="http://schema.org/PostalAddress">
+                                                <span itemprop="streetAddress">{{centerLocation.street}}</span><br>
+                                                <span itemprop="addressLocality">{{centerLocation.locality}}</span>,
+                                                <span itemprop="addressRegion">{{centerLocation.state}}</span>
+                                                <span itemprop="postalCode">{{centerLocation.postalCode}}</span>
+                                            </div>
+                                            Phone: <span itemprop="telephone">{{centerLocation.telephone}}</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                                <!-- Close EQ Table Contents -->
+                            </table>
+                        </div><!-- EQ TABLE (@end) -->
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

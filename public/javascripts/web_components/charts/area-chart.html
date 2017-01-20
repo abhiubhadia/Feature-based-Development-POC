@@ -1,0 +1,66 @@
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+<dom-module id="area-chart">
+    <template>
+        <iron-ajax id="getAreaChart"
+                   auto
+                   url="{{rootUrl}}/getAreaChart"
+                   handle-as="json"
+                   on-response="_draw"
+                   last-response="{{areaChartData}}"></iron-ajax>
+        <div class="panel panel-default">
+            <div class="panel-heading">User Visits</div>
+            <div class="panel-body chart-panel">
+                <div id="areaChart"></div>
+            </div>
+        </div>
+    </template>
+    <script>
+
+        Polymer({
+            is: 'area-chart',
+            properties: {
+                reload: {
+                    type: String,
+                    notify: true,
+                    reflectToAttribute: true,
+                    observer: '_refreshData'
+                },
+                chartColors:{
+                    type:Array,
+                    value:['#e5412d', '#f0ad4e', '#444']
+                },
+                rootUrl: {
+                    type: String
+                },
+                areaChartData: {
+                    type: Array,
+                    notify: true,
+                    reflectToAttribute: true
+                }
+            },
+            ready: function () {
+                console.log("Area chart ready")
+            },
+            _draw: function () {
+                var areaChart=this.$.areaChart;
+                var data=this.areaChartData;
+                var colors=this.chartColors;
+                    window.areaChart = Morris.Area({
+                        element: areaChart,
+                        data:data,
+                        xkey: 'y',
+                        ykeys: ['a', 'b','c'],
+                        labels: ['North America', 'Europe','Asia'],
+                        lineColors: colors,
+                        lineWidth: '3px',
+                        resize: true,
+                        redraw: true
+                    });
+
+            },
+            _refreshData: function () {
+
+            }
+        });
+    </script>
+</dom-module>

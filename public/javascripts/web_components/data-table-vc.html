@@ -1,0 +1,75 @@
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+<dom-module id="data-table-vc">
+
+    <template>
+            <iron-ajax id="fetchList"
+                    auto
+                    url="{{url}}"
+                    handle-as="json"
+                    last-response="{{vcList}}"></iron-ajax>
+        <div class="panel panel-default">
+            <div class="panel-heading"> <h3 class="title">{{moduleName}}</h3></div>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <template is="dom-repeat" items="{{tabelHeader}}" as="workVisitHeaders">
+                                <th>{{workVisitHeaders}}</th>
+                            </template>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <template is="dom-repeat" items="{{vcList}}" as="virCList">
+                            <tr>
+                                <!--<th scope="row">{{index}}</th>-->
+                                <td>{{virCList.serviceType}}</td>
+                                <td>{{virCList.metro}}</td>
+                                <td>{{virCList.primaryServiceName}}<br>{{virCList.primaryASidePort}}<br>{{virCList.primaryAsideId}}<br></td>
+                                <td>{{virCList.secondryServiceName}}<br>{{virCList.secondryASidePort}}</td>
+                                <td>{{virCList.serviceKeyZside}}</td>
+                                <td>{{virCList.virtualCircuitSpeed}}</td>
+                                <td>{{virCList.email}}</td>
+                            </tr>
+                        </template>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+
+    </template>
+
+    <script>
+        Polymer({
+            is: 'data-table-vc',
+            properties: {
+                reload: {
+                    type: String,
+                    notify: true,
+                    reflectToAttribute: true,
+                    observer: '_refetchData'
+                },
+                moduleName : String,
+                tabelHeader : {"value":["Service Type","Location","Primary Buyer","Secondary Buyer","Service Key","Speed","email"]},
+                isAjax : {
+                    type: Boolean,
+                    value: true
+                },
+                url: String
+            },
+            ready:function(){
+
+            },
+            _refetchData: function(){
+                if(this.reload){
+                    this.$.fetchList.generateRequest();
+                    this.reload = false;
+                }
+            }
+        });
+    </script>
+
+</dom-module>

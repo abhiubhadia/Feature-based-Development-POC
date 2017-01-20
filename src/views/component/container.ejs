@@ -1,0 +1,12 @@
+<%- contentFor('body') %>
+<link rel="import" href="<%= workflow.webSource %>"/>
+
+<<%= workflow.domSyntax %> root-url = "<%= rootUrl+'/'+workflow.domSyntax %>" class="customComponent"
+<% if(componentParams){ for(cParam in componentParams){%>
+  <%=cParam%> = <%= componentParams[cParam] %>
+<%}}%>
+></<%= workflow.domSyntax %>>
+
+
+<!--Event manager-->
+<script src="/javascripts/event-manager/event-manager.js"></script>

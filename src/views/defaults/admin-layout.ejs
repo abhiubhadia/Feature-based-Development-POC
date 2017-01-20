@@ -1,0 +1,30 @@
+<% include ../includes/header_admin.ejs %>
+<div ng-app="admin">
+    <% include ../includes/admin_header_nav.ejs %>
+
+    <!--<div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
+        <div class="page-header pull-left">
+            <div class="page-title">
+                Forms</div>
+        </div>
+        <ol class="breadcrumb page-breadcrumb pull-right">
+            <li><i class="fa fa-home"></i>&nbsp;<a href="dashboard-charts.html">Home</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+            <li class="hidden"><a href="#">Forms</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+            <li class="active">Forms</li>
+        </ol>
+        <div class="clearfix">
+        </div>
+    </div>-->
+
+    <div id="content-container" class="container-fluid main">
+
+        <div class="row">
+            <%- body %>
+        </div>
+        <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+
+</div>
+<% include ../includes/admin_footer.ejs %>

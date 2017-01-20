@@ -1,0 +1,38 @@
+<div class="main-row row">
+    <div class="col-sm-8">
+        <h1>Components List</h1>
+    </div>
+    <div class="col-sm-4 padTop20">
+        <a ui-sref="workflows.new" class="btn btn-default btn-raised pull-right">Add Component</a>
+    </div>
+</div>
+<div class="alert alert-dismissible hidden" role="alert"></div>
+<div class="row">
+    <table class="table table-striped table-bordered">
+        <tr>
+            <th>Enabled</th>
+            <th>Component Name</th>
+            <th>Context Path</th>
+            <th>Current Version</th>
+            <th>Actions</th>
+        </tr>
+        <tr ng-repeat="(key,value) in workflows">
+            <td>
+                <input
+                    bs-switch
+                    ng-change="updateWorkflowStatus('{{value._id}}')"
+                    ng-model="value.enabled"
+                    type="checkbox"
+                    switch-active="{{ isActive }}"
+                    switch-size="normal"
+                    ></td>
+            <td>{{value.name}}</td>
+            <td>{{value.path}}</td>
+            <td>{{value.version}}</td>
+            <td><a ui-sref="workflows.edit({ 'workflowId': '{{value._id}}' })">Edit</a> / <a
+                    ng-click="deleteWorkflow(value._id)">Delete</a>/ <a ui-sref="workflowVersion.list({ 'workflowId': '{{value._id}}' })">Show Versions</a>
+               <!-- / <a ui-sref="workflows.permissions({ 'workflowId': '{{value._id}}' })">Permissions</a>-->
+            </td>
+        </tr>
+    </table>
+</div>

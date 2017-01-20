@@ -1,0 +1,100 @@
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+<dom-module id="area-chart">
+    <template>
+        <iron-ajax id="getAreaChart"
+                   auto
+                   url="{{rootUrl}}/getHighAreaChart"
+                   handle-as="json"
+                   on-response="_draw"
+                   last-response="{{areaChartData}}"></iron-ajax>
+        <div class="panel panel-default">
+            <div class="panel-heading">User Visits</div>
+            <div class="panel-body high-chart-panel">
+                <div id="areaChart" class="myChart"></div>
+            </div>
+        </div>
+    </template>
+    <script>
+
+        Polymer({
+            is: 'area-chart',
+            properties: {
+                reload: {
+                    type: String,
+                    notify: true,
+                    reflectToAttribute: true,
+                    observer: '_refreshData'
+                },
+                chartColors:{
+                    type:Array,
+                    value:['#e5412d', '#f0ad4e', '#444']
+                },
+                rootUrl: {
+                    type: String
+                },
+                areaChartData: {
+                    type: Array,
+                    notify: true,
+                    reflectToAttribute: true
+                }
+            },
+            ready: function () {
+                console.log("Area chart ready")
+            },
+            _draw: function () {
+
+                $('#areaChart').highcharts({
+                        chart: {
+                            type: 'area'
+                        },
+                        title: {
+                            text: 'User Visits'
+                        },
+                        subtitle: {
+                            text: ''
+                        },
+                        xAxis: {
+                            allowDecimals: false,
+                            labels: {
+                                formatter: function () {
+                                    return this.value; // clean, unformatted number for year
+                                }
+                            }
+                        },
+                        yAxis: {
+                            title: {
+                                text: 'No of visits'
+                            },
+                            labels: {
+                                formatter: function () {
+                                    return this.value;
+                                }
+                            }
+                        },
+                        tooltip: {
+                            pointFormat: 'Total visit in {series.name} is <b>{point.y:,.0f}</b><br/> in {point.x}'
+                        },
+                        plotOptions: {
+                            area: {
+                                pointStart: 2009,
+                                marker: {
+                                    enabled: false,
+                                    symbol: 'circle',
+                                    radius: 2,
+                                    states: {
+                                        hover: {
+                                            enabled: true
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        series: this.areaChartData
+                    });
+            },
+            _refreshData: function () {
+
+            }
+        });
+    </script>
+</dom-module>
