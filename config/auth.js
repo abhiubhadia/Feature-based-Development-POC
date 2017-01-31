@@ -12,8 +12,8 @@ module.exports = function (stormpath, config) {
         client.getApplication(applicationHref, function(err, application) {
             console.log('Application:', application);
             var authRequest = {
-                username: 'alingaam@equinix.com',
-                password: 'Equinix@123'
+                username: 'abhishek.ubhadia@gmail.com',
+                password: '123'
             };
 
             application.authenticateAccount(authRequest, function(err, result) {

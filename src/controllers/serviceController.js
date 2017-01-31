@@ -306,7 +306,7 @@ exports.getServicesByMetro = function(req,res){
                 "name":"L3Google3",
                 "service_type_layer":"L3",
                 "availability_state":"AVAILABLE",
-                "csp_description":"<p><a href=\"http://www.equinix.com\" target=\"_blank\">http://www.equinix.com</a><br/></p>"
+                "csp_description":"<p><a href=\"http://www.google.com\" target=\"_blank\">http://www.google.com</a><br/></p>"
             },
             {
                 "value":493,
@@ -355,7 +355,7 @@ exports.getServicesByMetro = function(req,res){
                 "name":"goolelayer3profile2",
                 "service_type_layer":"L3",
                 "availability_state":"AVAILABLE",
-                "csp_description":"<p>tyy<a href=\"http://www.equinix.com\" target=\"_blank\">http://www.equinix.com</a></p>"
+                "csp_description":"<p>tyy<a href=\"http://www.google.com\" target=\"_blank\">http://www.google.com</a></p>"
             }
         ],
         6 : [
@@ -484,7 +484,7 @@ var vcList = [{
     "secondryASidePort": "SB-LD1-CX-LAYER2-6",
     "serviceKeyZside": "XATY1231WERESD",
     "virtualCircuitSpeed": "Up to 200 Mbps",
-    "email": "a@equinix.com"
+    "email": "a@google.com"
     },
     {
         "serviceType": "Azure ExpressRoute (Layer 2 Virtual Circuit)",
@@ -496,7 +496,7 @@ var vcList = [{
         "secondryASidePort": "SB-LD1-CX-LAYER2-6",
         "serviceKeyZside": "XATY1231WERESD",
         "virtualCircuitSpeed": "Up to 200 Mbps",
-        "email": "a@equinix.com"
+        "email": "a@google.com"
     }];
 
 exports.getVcList = function(req,res) {
@@ -513,7 +513,7 @@ var portSummary={
     'header':['Location','Port','Cu.In','Cu.Out','Avg.In','Avg.Out','Max.In','Max.Out'],
     'data':[{
         'location':'Ashburn',
-        'port':'Equinix-EU-DC2-IX-01',
+        'port':'google-EU-DC2-IX-01',
         'cIn':'9 Mbps',
         'cOut':'70 Mbps',
         'aOut':'45 Mbps',
@@ -531,7 +531,7 @@ var portSummary={
         'maxOut':'12 Mbps'
     },{
         'location':'Ashburn',
-        'port':'Equinix-EU-DC2-IX-01',
+        'port':'google-EU-DC2-IX-01',
         'cIn':'0 Mbps',
         'cOut':'0 Mbps',
         'aOut':'45 Mbps',
@@ -540,7 +540,7 @@ var portSummary={
         'maxOut':'126 Mbps'
     },{
         'location':'San Jose',
-        'port':'Equinix-EU-IX-01',
+        'port':'google-EU-IX-01',
         'cIn':'90 Mbps',
         'cOut':'700 Mbps',
         'aOut':'458 Mbps',
@@ -558,7 +558,7 @@ var portSummary={
         'maxOut':'12 Mbps'
     },{
         'location':'New York',
-        'port':'Equinix-NY-DC2-IX-01',
+        'port':'google-NY-DC2-IX-01',
         'cIn':'0 Mbps',
         'cOut':'0 Mbps',
         'aOut':'45 Mbps',
@@ -658,7 +658,7 @@ exports.getLocationList =function(req,res){
         locationName : "Silicon Valley",
         locationAddress:[{
             id : "SV1",
-            name : "Equinix SV1",
+            name : "google SV1",
             street : "11 Great Oaks Blvd",
             locality : "San Jose",
             state : "CA",
@@ -667,7 +667,7 @@ exports.getLocationList =function(req,res){
         },
             {
                 id : "SV2",
-                name : "Equinix SV2",
+                name : "google SV2",
                 street : "1350 Duane Ave",
                 locality : "Santa Clara",
                 state : "CA",
@@ -676,7 +676,7 @@ exports.getLocationList =function(req,res){
             },
             {
                 id : "SV3",
-                name : "Equinix SV3",
+                name : "google SV3",
                 street : "1735 Lundy Ave",
                 locality : "San Jose",
                 state : "CA",
@@ -685,7 +685,7 @@ exports.getLocationList =function(req,res){
             },
             {
                 id : "SV4",
-                name : "Equinix SV4",
+                name : "google SV4",
                 street : "255 Caspian Drive",
                 locality : "Sunnyvale",
                 state : "CA",
@@ -694,7 +694,7 @@ exports.getLocationList =function(req,res){
             },
             {
                 id : "SV5",
-                name : "Equinix SV5",
+                name : "google SV5",
                 street : "9 Great Oaks Blvd",
                 locality : "San Jose",
                 state : "CA",
@@ -703,7 +703,7 @@ exports.getLocationList =function(req,res){
             },
             {
                 id : "SV6",
-                name : "Equinix SV6",
+                name : "google SV6",
                 street : "444 Toyama Drive",
                 locality : "Sunnyvale",
                 state : "CA",
@@ -712,7 +712,7 @@ exports.getLocationList =function(req,res){
             },
             {
                 id : "SV8",
-                name : "Equinix SV8",
+                name : "google SV8",
                 street : "529 Bryant St",
                 locality : "Palo Alto",
                 state : "CA",
@@ -725,7 +725,7 @@ exports.getLocationList =function(req,res){
             locationAddress:[
                 {
                     id : "LD1",
-                    name : "Equinix LD1",
+                    name : "google LD1",
                     street : "101 Finsbury Pavement",
                     locality : "London",
                     state : "UK",
@@ -733,7 +733,7 @@ exports.getLocationList =function(req,res){
                 },
                 {
                     id : "LD2",
-                    name : "Equinix LD2",
+                    name : "google LD2",
                     street : "1350 Duane Ave",
                     locality : "London",
                     state : "UL",
@@ -742,7 +742,7 @@ exports.getLocationList =function(req,res){
                 },
                 {
                     id : "LD3",
-                    name : "Equinix LD3",
+                    name : "google LD3",
                     street : "1735 Lundy Ave",
                     locality : "London",
                     state : "UK",
@@ -751,7 +751,7 @@ exports.getLocationList =function(req,res){
                 },
                 {
                     id : "LD4",
-                    name : "Equinix LD4",
+                    name : "google LD4",
                     street : "255 Caspian Drive",
                     locality : "London",
                     state : "UK",

@@ -3,7 +3,7 @@
     app.AppComponent =
         ng.core.Component({
                 selector: 'location-list',
-                templateUrl: 'http://sv2lxnareshdev.corp.equinix.com:7080/provider/getWebComponent/web_components/location-list/template.html',
+                templateUrl: 'http://localhost:3000/provider/getWebComponent/web_components/location-list/template.html',
                 styles:['.locationName{color:#08C;}']
             })
             .Class({
